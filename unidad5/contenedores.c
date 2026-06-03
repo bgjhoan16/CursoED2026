@@ -1,3 +1,7 @@
+// jhoan camilo bonilla gamboa 
+// wendy sarely calzada quintero
+// Carolina angulo aramburo 
+// Oscar elian Caicedo Taylor
 
 #include <stdio.h>
 #include <stdlib.h>
