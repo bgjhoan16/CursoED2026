@@ -1,0 +1,255 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 100
+
+int arreglo[MAX];
+int n = 0;
+int datosIngresados = 0;
+
+/* -------- Utilidades -------- */
+
+void imprimirArreglo(int arr[], int tam) {
+    printf("[ ");
+    for (int i = 0; i < tam; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("]\n");
+}
+
+void copiarArreglo(int origen[], int destino[], int tam) {
+    for (int i = 0; i < tam; i++) {
+        destino[i] = origen[i];
+    }
+}
+
+void imprimirMenu(int habilitado) {
+    printf("\n========================================\n");
+    printf("   METODOS DE ORDENAMIENTO EN C\n");
+    printf("========================================\n");
+    if (!habilitado) {
+        printf("  1. Registrar datos en el vector\n");
+        printf("  --- (Ingrese datos para habilitar las demas opciones) ---\n");
+    } else {
+        printf("  1. Registrar datos en el vector\n");
+        printf("  2. Mostrar arreglo original\n");
+        printf("  3. Ordenar por Metodo Burbuja\n");
+        printf("  4. Ordenar por Metodo Seleccion\n");
+        printf("  5. Ordenar por Metodo Insercion\n");
+    }
+    printf("  6. Salir\n");
+    printf("========================================\n");
+    printf("Seleccione una opcion: ");
+}
+
+/* -------- Opcion 1: Registrar datos -------- */
+
+void registrarDatos() {
+    printf("\n--- REGISTRO DE DATOS ---\n");
+    printf("Cuantos elementos desea ingresar (1-%d): ", MAX);
+    scanf("%d", &n);
+
+    if (n < 1 || n > MAX) {
+        printf("Cantidad invalida. Intente de nuevo.\n");
+        n = 0;
+        return;
+    }
+
+    printf("Ingrese los %d elementos:\n", n);
+    for (int i = 0; i < n; i++) {
+        printf("  arreglo[%d] = ", i);
+        scanf("%d", &arreglo[i]);
+    }
+
+    datosIngresados = 1;
+    printf("\nDatos registrados exitosamente.\n");
+    printf("Arreglo ingresado: ");
+    imprimirArreglo(arreglo, n);
+}
+
+/* -------- Opcion 2: Mostrar arreglo original -------- */
+
+void mostrarOriginal() {
+    printf("\n--- ARREGLO ORIGINAL ---\n");
+    imprimirArreglo(arreglo, n);
+}
+
+/* -------- Opcion 3: Burbuja -------- */
+
+void ordenarBurbuja() {
+    int temp[MAX];
+    copiarArreglo(arreglo, temp, n);
+
+    printf("\n--- METODO BURBUJA ---\n");
+    printf("Arreglo inicial: ");
+    imprimirArreglo(temp, n);
+    printf("\n");
+
+    int intercambios = 0;
+    int pasadas = 0;
+
+    for (int i = 0; i < n - 1; i++) {
+        pasadas++;
+        printf(">> Pasada %d:\n", pasadas);
+        int huboCambio = 0;
+
+        for (int j = 0; j < n - 1 - i; j++) {
+            if (temp[j] > temp[j + 1]) {
+                int aux = temp[j];
+                temp[j] = temp[j + 1];
+                temp[j + 1] = aux;
+                intercambios++;
+                huboCambio = 1;
+                printf("   Intercambio: posicion[%d]=%d <-> posicion[%d]=%d  =>  ",
+                       j, temp[j + 1], j + 1, temp[j]);
+                printf("posicion[%d]=%d, posicion[%d]=%d\n", j, temp[j], j + 1, temp[j + 1]);
+            }
+        }
+
+        printf("   Estado al final de la pasada %d: ", pasadas);
+        imprimirArreglo(temp, n);
+
+        if (!huboCambio) {
+            printf("   (Sin intercambios, arreglo ya ordenado)\n");
+            break;
+        }
+    }
+
+    printf("\nTotal de pasadas: %d  |  Total de intercambios: %d\n", pasadas, intercambios);
+    printf("Arreglo ordenado (Burbuja): ");
+    imprimirArreglo(temp, n);
+}
+
+/* -------- Opcion 4: Seleccion -------- */
+
+void ordenarSeleccion() {
+    int temp[MAX];
+    copiarArreglo(arreglo, temp, n);
+
+    printf("\n--- METODO SELECCION ---\n");
+    printf("Arreglo inicial: ");
+    imprimirArreglo(temp, n);
+    printf("\n");
+
+    int intercambios = 0;
+
+    for (int i = 0; i < n - 1; i++) {
+        int posMin = i;
+
+        for (int j = i + 1; j < n; j++) {
+            if (temp[j] < temp[posMin]) {
+                posMin = j;
+            }
+        }
+
+        if (posMin != i) {
+            int aux = temp[i];
+            temp[i] = temp[posMin];
+            temp[posMin] = aux;
+            intercambios++;
+            printf(">> Pasada %d: Minimo encontrado = %d en posicion[%d]\n", i + 1, temp[i], posMin);
+            printf("   Intercambio: posicion[%d] <-> posicion[%d]\n", i, posMin);
+        } else {
+            printf(">> Pasada %d: Minimo = %d ya esta en posicion[%d], sin intercambio\n",
+                   i + 1, temp[i], i);
+        }
+
+        printf("   Estado al final de la pasada %d: ", i + 1);
+        imprimirArreglo(temp, n);
+        printf("\n");
+    }
+
+    printf("Total de intercambios: %d\n", intercambios);
+    printf("Arreglo ordenado (Seleccion): ");
+    imprimirArreglo(temp, n);
+}
+
+/* -------- Opcion 5: Insercion -------- */
+
+void ordenarInsercion() {
+    int temp[MAX];
+    copiarArreglo(arreglo, temp, n);
+
+    printf("\n--- METODO INSERCION ---\n");
+    printf("Arreglo inicial: ");
+    imprimirArreglo(temp, n);
+    printf("\n");
+
+    int movimientos = 0;
+
+    for (int i = 1; i < n; i++) {
+        int clave = temp[i];
+        int j = i - 1;
+
+        printf(">> Pasada %d: Insertando clave = %d\n", i, clave);
+
+        int desplazamientos = 0;
+        while (j >= 0 && temp[j] > clave) {
+            temp[j + 1] = temp[j];
+            desplazamientos++;
+            movimientos++;
+            printf("   Movimiento: %d desplazado de posicion[%d] a posicion[%d]\n",
+                   temp[j], j, j + 1);
+            j--;
+        }
+
+        temp[j + 1] = clave;
+
+        if (desplazamientos == 0) {
+            printf("   Clave %d ya en posicion correcta, sin movimientos\n", clave);
+        } else {
+            printf("   Clave %d insertada en posicion[%d]\n", clave, j + 1);
+        }
+
+        printf("   Estado al final de la pasada %d: ", i);
+        imprimirArreglo(temp, n);
+        printf("\n");
+    }
+
+    printf("Total de movimientos: %d\n", movimientos);
+    printf("Arreglo ordenado (Insercion): ");
+    imprimirArreglo(temp, n);
+}
+
+/* -------- Main -------- */
+
+int main() {
+    int opcion;
+
+    printf("\nBienvenido al programa de Metodos de Ordenamiento\n");
+
+    do {
+        imprimirMenu(datosIngresados);
+        scanf("%d", &opcion);
+
+        if (!datosIngresados && opcion != 1 && opcion != 6) {
+            printf("\n[!] Opcion no disponible. Primero debe registrar datos (Opcion 1).\n");
+            continue;
+        }
+
+        switch (opcion) {
+            case 1:
+                registrarDatos();
+                break;
+            case 2:
+                if (datosIngresados) mostrarOriginal();
+                break;
+            case 3:
+                if (datosIngresados) ordenarBurbuja();
+                break;
+            case 4:
+                if (datosIngresados) ordenarSeleccion();
+                break;
+            case 5:
+                if (datosIngresados) ordenarInsercion();
+                break;
+            case 6:
+                printf("\nSaliendo del programa. Hasta pronto!\n");
+                break;
+            default:
+                printf("\n[!] Opcion invalida. Intente de nuevo.\n");
+        }
+
+    } while (opcion != 6);
+
+    return 0;
