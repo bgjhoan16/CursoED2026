@@ -1,21 +1,29 @@
 "# CursoED2026"  
 "# CursoED2026" 
 .....
-acabo de dañar mi repositorio por intentar subir un trabajo de manera local a otro perfil de git como colaborador.  
 
 
 
+enunciado fifo y lifo 
+Sistema de Atención de un Supermercado
 
+La Cola:
+ Representa a los clientes que llegan y esperan su turno para ser atendidos por un cajero, respetando siempre la regla del primero en llegar, primero en salir.
 
+La Pila:
+Almacena las solicitudes de devolución que hacen los clientes mientras esperan en la cola. Funciona con regla LIFO: la última solicitud registrada es la primera que atiende el cajero cuando hay tiempo libre. El cajero usa push para registrar cada devolución y pop para procesarlas, sin romper el orden de la cola principal.
 
+Enfoque de programación: Cola  para la atención de clientes. Pila pushpop para la pila de solicitudes de devolución.
 
+Ejemplo rápido: 
+Cliente A pide devolución push
+Cliente B pide devolución push
+Cajero desocupa pop atiende primero a B, luego a A.
 
-
-
-
-cordial saludo profesor lucio mi nombre es jhoan camilo bonilla gamboa, se que lo que voy a subir puede no ser de su agrado (ni siquiera del mio xd) pero quiero dejar en claro que este taller se apoyo en las bases de la ia, no por decisicion propia si no de agentes ajenos (compañeros temporales) del grupo, no es una forma de excusa si no de hacer claro algo que obviamente reitera mucho. porfa vor no muestre esto en clases ya que puede generar problemas con dichos compañeros y amigos jajaja una vez mas, espero disfrute haciendo las preguntas para evidenciar como hicimos el codigo el jueves
-
-
+Wendy calzada Quintero 
+Jhaon camilo Bonilla
+Carolina Aramburo
+Oscar Elian caicedo
 
 
 
