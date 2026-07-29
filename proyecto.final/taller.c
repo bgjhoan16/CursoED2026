@@ -643,3 +643,34 @@ void estadisticas() {
     }
     printf("\n");
 }
+
+// ========== LIBERAR MEMORIA ==========
+
+void liberarPasajeros(Pasajero *p) {
+    if (p == NULL) {
+        return;
+    }
+    liberarPasajeros(p->sig);
+    free(p);
+}
+
+void liberarViajes(Viaje *raiz) {
+    if (raiz == NULL) {
+        return;
+    }
+    liberarViajes(raiz->izq);
+    liberarViajes(raiz->der);
+    free(raiz);
+}
+
+void liberarTodo() {
+    Destino *aux;
+    
+    while (listaDestinos != NULL) {
+        aux = listaDestinos;
+        liberarPasajeros(aux->listaPasajeros);
+        liberarViajes(aux->raizViajes);
+        listaDestinos = aux->sig;
+        free(aux);
+    }
+}
