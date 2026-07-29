@@ -82,4 +82,4 @@ void liberarPasajeros(Pasajero *p);
 void liberarViajes(Viaje *raiz);
 void liberarTodo(void);
 
-#endif // TERMINAL_H
+#endif // TERMINAL_Hgit
