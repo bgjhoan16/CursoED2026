@@ -505,4 +505,85 @@ int contarViajes(Viaje *raiz) {
     return 1 + contarViajes(raiz->izq) + contarViajes(raiz->der);
 }
 
- 
+ // ========== DESTINOS ==========
+
+Destino *crearDestino(int cod, char nom[], char emp[]) {
+    Destino *nuevo;
+    nuevo = (Destino *)malloc(sizeof(Destino));
+    nuevo->codigo = cod;
+    strcpy(nuevo->nombre, nom);
+    strcpy(nuevo->empresa, emp);
+    nuevo->listaPasajeros = NULL;
+    nuevo->raizViajes = NULL;
+    nuevo->sig = NULL;
+    return nuevo;
+}
+
+void registrarDestino() {
+    int cod;
+    char nom[100], emp[100];
+    Destino *aux, *nuevo;
+
+    printf("\nCodigo: ");
+    scanf("%d", &cod);
+
+    aux = listaDestinos;
+    while (aux != NULL) {
+        if (aux->codigo == cod) {
+            printf("Destino ya existe.\n");
+            return;
+        }
+        aux = aux->sig;
+    }
+
+    printf("Nombre: ");
+    scanf(" %[^\n]", nom);
+    printf("Empresa: ");
+    scanf(" %[^\n]", emp);
+
+    nuevo = crearDestino(cod, nom, emp);
+
+    if (listaDestinos == NULL) {
+        listaDestinos = nuevo;
+    } else {
+        aux = listaDestinos;
+        while (aux->sig != NULL) {
+            aux = aux->sig;
+        }
+        aux->sig = nuevo;
+    }
+    printf("Destino registrado.\n");
+}
+
+// mostrar destinos recursivo
+void mostrarDestinos(Destino *d) {
+    if (d == NULL) {
+        return;
+    }
+    printf("\nCodigo: %d Nombre: %s Empresa: %s", d->codigo, d->nombre, d->empresa);
+    mostrarDestinos(d->sig);
+}
+
+void modificarDestino() {
+    int cod;
+    Destino *d;
+
+    printf("\nCodigo destino: ");
+    scanf("%d", &cod);
+
+    d = listaDestinos;
+    while (d != NULL && d->codigo != cod) {
+        d = d->sig;
+    }
+
+    if (d == NULL) {
+        printf("No encontrado.\n");
+        return;
+    }
+
+    printf("Nuevo nombre: ");
+    scanf(" %[^\n]", d->nombre);
+    printf("Nueva empresa: ");
+    scanf(" %[^\n]", d->empresa);
+    printf("Modificado.\n");
+}
