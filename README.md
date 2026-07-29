@@ -4,38 +4,7 @@
 
 
 
-enunciado fifo y lifo 
-Sistema de Atención de un Supermercado
-
-La Cola:
- Representa a los clientes que llegan y esperan su turno para ser atendidos por un cajero, respetando siempre la regla del primero en llegar, primero en salir.
-
-La Pila:
-Almacena las solicitudes de devolución que hacen los clientes mientras esperan en la cola. Funciona con regla LIFO: la última solicitud registrada es la primera que atiende el cajero cuando hay tiempo libre. El cajero usa push para registrar cada devolución y pop para procesarlas, sin romper el orden de la cola principal.
-
-Enfoque de programación: Cola  para la atención de clientes. Pila pushpop para la pila de solicitudes de devolución.
-
-Ejemplo rápido: 
-Cliente A pide devolución push
-Cliente B pide devolución push
-Cajero desocupa pop atiende primero a B, luego a A.
-
-Wendy calzada Quintero 
-Jhaon camilo Bonilla
-Carolina Aramburo
-Oscar Elian caicedo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+SISTEMA DE ATENCIÓN EN UN SUPERMERCADO
+Desarrollar en lenguaje C una aplicación para gestionar la atención de los clientes en un supermercado. Cada cliente deberá registrarse con sus datos básicos y ubicarse en una cola de espera, siendo atendido por el cajero en el mismo orden en que llegó, de acuerdo con el principio FIFO. El sistema deberá permitir ingresar nuevos clientes, consultar la fila actual y atender al primer cliente disponible sin alterar el orden de los demás.
+Durante la atención, un cliente podrá registrar una solicitud de devolución indicando SOLAMENTE el producto. Estas solicitudes deberán almacenarse en una pila y serán procesadas por el cajero cuando no haya clientes pendientes en la cola. La última solicitud registrada será la primera en atenderse, respetando el principio LIFO. De esta manera, la cola controla la atención normal de los clientes y la pila administra las devoluciones pendientes como una actividad complementaria del supermercado.
+Ejemplo: si el cliente A registra una devolución y posteriormente el cliente B registra otra, la solicitud de B quedará en la parte superior de la pila. Cuando el cajero pueda procesar las devoluciones, atenderá primero la solicitud de B y después la de A.
