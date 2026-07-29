@@ -586,4 +586,60 @@ void modificarDestino() {
     printf("Nueva empresa: ");
     scanf(" %[^\n]", d->empresa);
     printf("Modificado.\n");
+    }
+    // ========== ESTADISTICAS ==========
+
+void estadisticas() {
+    Destino *d;
+    int totalPas, totalDes, totalVia, pas;
+    Destino *mayor, *menor;
+    float prom1, prom2;
+
+    totalPas = 0;
+    totalDes = 0;
+    totalVia = 0;
+    mayor = NULL;
+    menor = NULL;
+    d = listaDestinos;
+
+    while (d != NULL) {
+        pas = contarPasajeros(d->listaPasajeros);
+        totalPas = totalPas + pas;
+        totalDes = totalDes + 1;
+        totalVia = totalVia + contarViajes(d->raizViajes);
+
+        if (mayor == NULL || pas > contarPasajeros(mayor->listaPasajeros)) {
+            mayor = d;
+        }
+        if (menor == NULL || pas < contarPasajeros(menor->listaPasajeros)) {
+            menor = d;
+        }
+
+        d = d->sig;
+    }
+
+    printf("\n=== ESTADISTICAS ===");
+    printf("\nTotal pasajeros: %d", totalPas);
+    printf("\nTotal embarcados: %d", totalEmbarcados);
+
+    if (totalDes > 0) {
+        prom1 = (float)totalPas / totalDes;
+        printf("\nPromedio pas/destino: %.2f", prom1);
+    }
+    
+    if (totalVia > 0) {
+        prom2 = (float)totalEmbarcados / totalVia;
+        printf("\nPromedio emb/viaje: %.2f", prom2);
+    }
+
+    if (mayor != NULL) {
+        printf("\nMayor espera: %s (%d pas)", mayor->nombre, 
+               contarPasajeros(mayor->listaPasajeros));
+    }
+    
+    if (menor != NULL) {
+        printf("\nMenor espera: %s (%d pas)", menor->nombre,
+               contarPasajeros(menor->listaPasajeros));
+    }
+    printf("\n");
 }
